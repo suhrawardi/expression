@@ -3,6 +3,9 @@
 -- GPL version 2 or later (see http://www.gnu.org/copyleft/gpl.html)
 --
 
+module Expression where
+import SOE
+
 actionList = [putStr2 "Hello World\n",
               writeFile "testfile.txt" "Howdy File system",
               putStr2 "File written!\n"]

@@ -10,4 +10,9 @@ Cabal-Version:       >=1.2
 
 Executable hsexpr
   Main-is:           expression.hs
-  Build-Depends:     base >= 3 && < 5, process, ansi-terminal
+  Build-Depends:     base >= 3 && < 5,
+                     ansi-terminal,
+                     GLFW,
+                     OpenGL,
+                     process,
+                     stm
