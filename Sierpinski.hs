@@ -2,7 +2,7 @@
 -- Copyright (c) 2017 Jarra <suhrawardi@gmail.com>
 -- GPL version 2 or later (see http://www.gnu.org/copyleft/gpl.html)
 --
-module Sierpinski (draw) where
+module Sierpinski (makeDrawing) where
 import SOE
 
 pic1 = withColor Red (ellipse (150, 150) (300, 200))
@@ -25,16 +25,16 @@ sierpinskiTri w x y size = if size <= minSize
                                    sierpinskiTri w x (y - size2) size2
                                    sierpinskiTri w (x + size2) y size2
 
-draw :: IO ()
-draw = runGraphics (
-       do w <- openWindow "Sirpienski" (800, 800)
-          drawInWindow w pic1
-          drawInWindow w pic2
-          drawInWindow w pic3
-          drawInWindow w pic4
-          sierpinskiTri w 50 750 700
-          spaceClose w
-       )
+makeDrawing :: IO ()
+makeDrawing = runGraphics (
+                do w <- openWindow "Sirpienski" (800, 800)
+                   drawInWindow w pic1
+                   drawInWindow w pic2
+                   drawInWindow w pic3
+                   drawInWindow w pic4
+                   sierpinskiTri w 50 750 700
+                   spaceClose w
+                )
 
 
 spaceClose :: Window -> IO()

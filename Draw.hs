@@ -1,4 +1,4 @@
-module Draw (inchToPixel, pixelToInch, intToFloat, draw,
+module Draw (inchToPixel, pixelToInch, intToFloat, makeDrawing,
              xWin, yWin, trans, shapeToGraphic, spaceClose
             ) where
 
@@ -52,16 +52,16 @@ sh3 = RtTriangle 3 2
 sh4 = Polygon [(-2.5, 2.5), (-1.5, 2.0), (-1.1, 0.2), (-1.7, -1.0), (-3.0, 0)]
 
 drawShapes :: Window -> ColoredShapes -> IO ()
-drawShapes w [] = return ()
-drawShapes w ((c, s):cs) = do drawInWindow w (withColor c (shapeToGraphic s))
-                              drawShapes w cs
+drawShapes w
+    = mapM_ aux
+      where aux (c, s) = drawInWindow w (withColor c (shapeToGraphic s))
 
-draw :: IO ()
-draw = runGraphics (
-         do w <- openWindow "Drawing" (xWin, yWin)
-            drawShapes w shs
-            spaceClose w
-       )
+makeDrawing :: IO ()
+makeDrawing = runGraphics (
+                do w <- openWindow "Drawing" (xWin, yWin)
+                   drawShapes w shs
+                   spaceClose w
+              )
 
 spaceClose :: Window -> IO()
 spaceClose w = do k <- getKey w
