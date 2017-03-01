@@ -13,6 +13,10 @@ xWin2, yWin2 :: Int
 xWin2 = xWin `div` 2
 yWin2 = yWin `div` 2
 
+type ColoredShapes = [(Color, Shape)]
+shs :: ColoredShapes
+shs = [(Red, sh1), (Blue, sh2), (Yellow, sh3), (Magenta, sh4)]
+
 inchToPixel :: Float -> Int
 inchToPixel x = round (100 * x)
 
@@ -47,13 +51,15 @@ sh2 = Ellipse 1 1.5
 sh3 = RtTriangle 3 2
 sh4 = Polygon [(-2.5, 2.5), (-1.5, 2.0), (-1.1, 0.2), (-1.7, -1.0), (-3.0, 0)]
 
+drawShapes :: Window -> ColoredShapes -> IO ()
+drawShapes w [] = return ()
+drawShapes w ((c, s):cs) = do drawInWindow w (withColor c (shapeToGraphic s))
+                              drawShapes w cs
+
 draw :: IO ()
 draw = runGraphics (
          do w <- openWindow "Drawing" (xWin, yWin)
-            drawInWindow w (withColor Red (shapeToGraphic sh1))
-            drawInWindow w (withColor Blue (shapeToGraphic sh2))
-            drawInWindow w (withColor Yellow (shapeToGraphic sh3))
-            drawInWindow w (withColor Green (shapeToGraphic sh4))
+            drawShapes w shs
             spaceClose w
        )
 
