@@ -56,10 +56,15 @@ drawShapes w
     = mapM_ aux
       where aux (c, s) = drawInWindow w (withColor c (shapeToGraphic s))
 
+coloredCircles =
+  let colors = [Black, Blue, Green, Cyan, Red, Magenta, Yellow, White]
+      circles = map circle [2.4, 2.1..0.3]
+  in zip colors circles
+
 makeDrawing :: IO ()
 makeDrawing = runGraphics (
                 do w <- openWindow "Drawing" (xWin, yWin)
-                   drawShapes w shs
+                   drawShapes w coloredCircles
                    spaceClose w
               )
 
