@@ -5,8 +5,9 @@
 
 module Main where
 -- import Sierpinski
-import Draw
+-- import Draw
 import Region
+import Picture
 
 main :: IO ()
 main = makeDrawing
